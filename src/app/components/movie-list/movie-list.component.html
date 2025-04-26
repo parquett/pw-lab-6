@@ -1,0 +1,26 @@
+<div class="row">
+  @if (movies.length === 0) {
+    <div class="col-12">
+      <div class="alert alert-info">
+        No added movies. Add your first movie!
+      </div>
+    </div>
+  }
+  
+  @for (movie of movies; track movie.id) {
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        <img 
+          [src]="movie.coverUrl" 
+          class="card-img-top" 
+          alt="{{ movie.name }}"
+        >
+        <div class="card-body">
+          <h5 class="card-title">{{ movie.name }}</h5>
+          <a [href]="movie.watchUrl" target="_blank" class="btn btn-primary me-2">Watch</a>
+          <button class="btn btn-danger" (click)="deleteMovie(movie.id)">Delete</button>
+        </div>
+      </div>
+    </div>
+  }
+</div> 
