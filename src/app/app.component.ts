@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { MovieFormComponent } from './components/movie-form/movie-form.component';
+import { MovieListComponent } from './components/movie-list/movie-list.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, MovieFormComponent, MovieListComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'Lab6';
+  title = 'Movie Collection Manager';
 }
