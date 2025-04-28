@@ -19,7 +19,7 @@ export class MovieListComponent implements OnInit {
   protected movies: Movie[] = [];
 
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this._movieService.getMovies().pipe(
       takeUntilDestroyed(this._destroyRef)
     ).subscribe(movies => {
@@ -27,7 +27,7 @@ export class MovieListComponent implements OnInit {
     });
   }
 
-  deleteMovie(id: number | undefined): void {
+  protected deleteMovie(id: number | undefined): void {
     if (id !== undefined) {
       this._movieService.deleteMovie(id);
     }

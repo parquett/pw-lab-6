@@ -17,11 +17,11 @@ export class MovieService {
     }
   }
 
-  getMovies(): Observable<Movie[]> {
+  public getMovies(): Observable<Movie[]> {
     return this.moviesSubject.asObservable();
   }
 
-  addMovie(movie: Movie): void {
+  public addMovie(movie: Movie): void {
     const newMovie = {
       ...movie,
       id: Date.now()
@@ -32,7 +32,7 @@ export class MovieService {
     this.saveToLocalStorage();
   }
 
-  deleteMovie(id: number): void {
+  public deleteMovie(id: number): void {
     this.movies = this.movies.filter(movie => movie.id !== id);
     this.moviesSubject.next([...this.movies]);
     this.saveToLocalStorage();
