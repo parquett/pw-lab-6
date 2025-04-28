@@ -18,7 +18,8 @@ export class MovieFormComponent {
     name: new FormControl('', [Validators.required]),
     coverUrl: new FormControl('', [Validators.required]),
     watchUrl: new FormControl('', [Validators.required]),
-    status: new FormControl('', [Validators.required])
+    status: new FormControl('', [Validators.required]),
+    score: new FormControl<number | null>(null)
   });
 
   addMovie(): void {
@@ -27,5 +28,9 @@ export class MovieFormComponent {
       this._movieService.addMovie(newMovie);
       this.movieForm.reset();
     }
+  }
+
+  setRating(value: number): void {
+    this.movieForm.controls.score.setValue(value);
   }
 } 

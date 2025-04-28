@@ -1,4 +1,16 @@
 .card-img-top {
   height: 300px;
   object-fit: cover;
+}
+
+.movie-rating {
+  font-size: 18px;
+  
+  .star {
+    color: #ccc;
+    
+    &.active {
+      color: #ffc107;
+    }
+  }
 } 

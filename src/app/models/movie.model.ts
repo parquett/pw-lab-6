@@ -4,4 +4,5 @@ export interface Movie {
   coverUrl: string;
   watchUrl: string;
   status: string;
+  score: number | null;
 } 

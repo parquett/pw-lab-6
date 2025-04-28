@@ -50,6 +50,20 @@
         <label for="watched">Watched</label>
       </div>
       
+      @if(movieForm.controls.status.value === 'watched') {
+          <label>Movie rating:</label>
+          <div class="star-rating">
+            @for (star of [1, 2, 3, 4, 5]; track star) {
+              <span 
+                class="star" 
+                [class.active]="star <= (movieForm.controls.score.value || 0)"
+                (click)="setRating(star)">
+                ★
+              </span>
+            }
+          </div>
+      }
+      
       <button type="submit" 
         [disabled]="movieForm.invalid"
         class="btn btn-primary">Add movie</button>

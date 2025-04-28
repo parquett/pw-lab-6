@@ -24,6 +24,14 @@
             }
             @if (movie.status === 'watched') {
               <span class="badge bg-success me-1">Watched</span>
+              
+              @if (movie.score) {
+                <div class="movie-rating mt-1">
+                  @for (star of [1, 2, 3, 4, 5]; track star) {
+                    <span class="star" [class.active]="star <= movie.score">★</span>
+                  }
+                </div>
+              }
             }
           </div>
           
