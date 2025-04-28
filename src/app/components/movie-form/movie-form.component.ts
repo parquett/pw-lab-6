@@ -3,11 +3,12 @@ import { FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angula
 import { MovieService } from '../../services/movie.service';
 import { Movie } from '../../models/movie.model';
 import { CommonModule } from '@angular/common';
+import { StarRatingComponent } from '../star-rating.component';
 
 @Component({
   selector: 'app-movie-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, StarRatingComponent],
   templateUrl: './movie-form.component.html',
   styleUrls: ['./movie-form.component.scss']
 })

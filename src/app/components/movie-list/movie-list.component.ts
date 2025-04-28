@@ -4,11 +4,11 @@ import { MovieService } from '../../services/movie.service';
 import { Movie } from '../../models/movie.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DestroyRef } from '@angular/core';
-
+import { StarRatingComponent } from '../star-rating.component';
 @Component({
   selector: 'app-movie-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, StarRatingComponent],
   templateUrl: './movie-list.component.html',
   styleUrls: ['./movie-list.component.scss']
 })
@@ -30,6 +30,13 @@ export class MovieListComponent implements OnInit {
   protected deleteMovie(id: number | undefined): void {
     if (id !== undefined) {
       this._movieService.deleteMovie(id);
+    }
+  }
+
+
+  protected setMovieRating(id: number | undefined, value: number): void {
+    if (id !== undefined) {
+      this._movieService.updateMovieScore(id, value);
     }
   }
 } 
