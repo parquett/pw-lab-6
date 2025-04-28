@@ -38,6 +38,31 @@ export class MovieService {
     this.saveToLocalStorage();
   }
 
+  public updateMovieStatus(id: number, status: string): void {
+    const movieIndex = this.movies.findIndex(movie => movie.id === id);
+    if (movieIndex !== -1) {
+      this.movies[movieIndex] = {
+        ...this.movies[movieIndex],
+        status,
+        score: status === 'watched' ? 0 : null
+      };
+      this.moviesSubject.next([...this.movies]);
+      this.saveToLocalStorage();
+    }
+  }
+
+  public updateMovieScore(id: number, score: number): void {
+    const movieIndex = this.movies.findIndex(movie => movie.id === id);
+    if (movieIndex !== -1) {
+      this.movies[movieIndex] = {
+        ...this.movies[movieIndex],
+        score
+      };
+      this.moviesSubject.next([...this.movies]);
+      this.saveToLocalStorage();
+    }
+  }
+
   protected saveToLocalStorage(): void {
     localStorage.setItem('movies', JSON.stringify(this.movies));
   }

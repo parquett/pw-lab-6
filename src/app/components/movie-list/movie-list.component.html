@@ -31,8 +31,24 @@
             }
           </div>
           
-          <a [href]="movie.watchUrl" target="_blank" class="btn btn-primary me-2"><i class="bi bi-eye"></i></a>
-          <button class="btn btn-danger" (click)="deleteMovie(movie.id)"><i class="bi bi-trash"></i></button>
+          <a [href]="movie.watchUrl" target="_blank" 
+            class="btn btn-primary me-2" title="Watch movie">
+            <i class="bi bi-eye"></i>
+          </a>
+
+          @if (movie.status === 'wishlist') {
+            <button class="btn btn-success me-2" 
+            title = "Mark as watched"
+            (click)="setAsWatched(movie.id)">
+              <i class="bi bi-check-circle"></i>
+            </button>
+          }
+
+          <button class="btn btn-danger" 
+          title = "Delete movie"
+          (click)="deleteMovie(movie.id)">
+            <i class="bi bi-trash"></i>
+          </button>
         </div>
       </div>
     </div>

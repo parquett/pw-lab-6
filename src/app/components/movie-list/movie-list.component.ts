@@ -33,6 +33,11 @@ export class MovieListComponent implements OnInit {
     }
   }
 
+  protected setAsWatched(id: number | undefined): void {
+    if (id !== undefined) {
+      this._movieService.updateMovieStatus(id, 'watched');
+    }
+  }
 
   protected setMovieRating(id: number | undefined, value: number): void {
     if (id !== undefined) {
