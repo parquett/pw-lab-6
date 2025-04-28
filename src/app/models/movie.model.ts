@@ -3,4 +3,5 @@ export interface Movie {
   name: string;
   coverUrl: string;
   watchUrl: string;
+  status: string;
 } 

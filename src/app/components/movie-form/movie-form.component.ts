@@ -17,8 +17,9 @@ export class MovieFormComponent {
   protected movieForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     coverUrl: new FormControl('', [Validators.required]),
-    watchUrl: new FormControl('', [Validators.required])
-});;
+    watchUrl: new FormControl('', [Validators.required]),
+    status: new FormControl('', [Validators.required])
+  });
 
   addMovie(): void {
     if (this.movieForm.valid) {

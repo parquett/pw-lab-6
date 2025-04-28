@@ -34,6 +34,22 @@
         }
       </div>
       
+      <div class="form-check">
+        <input type="radio" id="inWishlist" 
+          [formControl]="movieForm.controls.status" 
+          [value]="'wishlist'"
+          class="form-check-input">
+        <label for="inWishlist">In wishlist</label>
+      </div>
+      
+      <div class="form-check">
+        <input type="radio" id="watched" 
+          [formControl]="movieForm.controls.status" 
+          [value]="'watched'"
+          class="form-check-input">
+        <label for="watched">Watched</label>
+      </div>
+      
       <button type="submit" 
         [disabled]="movieForm.invalid"
         class="btn btn-primary">Add movie</button>
