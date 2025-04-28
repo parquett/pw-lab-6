@@ -10,7 +10,7 @@
           [formControl]=movieForm.controls.name 
           class="form-control">
         @if(movieForm.controls.name.invalid && movieForm.controls.name.touched) {
-          <div class="error-message" style="color: red;">Movie name is required</div>
+          <div style="color: lightcoral; font-style: italic">Movie name is required</div>
         }
       </div>
       
@@ -20,7 +20,7 @@
           [formControl]="movieForm.controls.coverUrl" 
           class="form-control">
         @if(movieForm.controls.coverUrl.invalid && movieForm.controls.coverUrl.touched) {
-          <div class="error-message" style="color: red;">Cover URL is required</div>
+          <div style="color: lightcoral; font-style: italic">Cover URL is required</div>
         }
       </div>
       
@@ -30,7 +30,7 @@
           [formControl]="movieForm.controls.watchUrl" 
           class="form-control">
         @if(movieForm.controls.watchUrl.invalid && movieForm.controls.watchUrl.touched) {
-          <div class="error-message" style="color: red;">Watch URL is required</div>
+          <div style="color: lightcoral; font-style: italic;">Watch URL is required</div>
         }
       </div>
       

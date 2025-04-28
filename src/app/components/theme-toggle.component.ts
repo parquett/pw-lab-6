@@ -9,10 +9,10 @@ import { ThemeService } from '../services/theme.service';
   template: `
     <button 
       class="btn theme-toggle-btn"
-      [class.btn-light]="isDarkTheme$()" 
-      [class.btn-dark]="!(isDarkTheme$())"
+      [class.btn-light]="isDarkThemeSig()" 
+      [class.btn-dark]="!(isDarkThemeSig())"
       (click)="toggleTheme()">
-      {{ (isDarkTheme$()) ? '☀️' : '🌙' }}
+      {{ (isDarkThemeSig()) ? '☀️' : '🌙' }}
     </button>
   `,
   styles: [`
@@ -21,12 +21,19 @@ import { ThemeService } from '../services/theme.service';
       top: 20px;
       right: 20px;
       z-index: 1000;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      align-items: center;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      padding: 0;
     }
   `]
 })
 export class ThemeToggleComponent {
   private _themeService = inject(ThemeService);
-  protected isDarkTheme$ = this._themeService.isDarkThemeSig;
+  protected isDarkThemeSig = this._themeService.isDarkThemeSig;
 
   protected toggleTheme(): void {
     this._themeService.toggleTheme();

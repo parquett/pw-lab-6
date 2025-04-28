@@ -1,3 +1,30 @@
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.btn {
+    margin-top: 1.5rem;
+}
+
+.card {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-header {
+        background-color: #ffffff;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        padding: 1.25rem 1.5rem;
+    }
+}
+
 .star-rating {
   font-size: 24px;
   cursor: pointer;
