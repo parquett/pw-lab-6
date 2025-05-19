@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 
@@ -8,31 +8,39 @@ import { AuthService } from '../../services/auth.service';
   imports: [CommonModule],
   template: `
     <div class="container mt-4">
-          @if (currentRole$ | async; as role) {
-            <div class="d-flex justify-content-between align-items-center">
-              <div>
-                <span class="badge bg-primary me-2">Logged in as: {{ role }}</span>
-                <span class="badge" [ngClass]="getRoleBadgeClass(role)">
-                  {{ getRolePermissions(role) }}
-                </span>
-              </div>
-              <button class="btn btn-outline-danger" (click)="logout()">
-                Logout
-              </button>
-            </div>
-          } @else {
-            <div class="btn-group" role="group">
-              <button class="btn btn-primary" (click)="login('ADMIN')">Login as Admin</button>
-              <button class="btn btn-secondary" (click)="login('WRITER')">Login as Writer</button>
-              <button class="btn btn-info" (click)="login('VISITOR')">Login as Visitor</button>
-            </div>
-          }
+      @if (currentRole$ | async; as role) {
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <span class="badge bg-primary me-2">Logged in as: {{ role }}</span>
+            <span class="badge" [ngClass]="getRoleBadgeClass(role)">
+              {{ getRolePermissions(role) }}
+            </span>
+          </div>
+          <div class="btn-group" role="group">
+            @if (role !== 'ADMIN') {
+              <button class="btn btn-primary" (click)="login('ADMIN')">Switch to Admin</button>
+            }
+            @if (role !== 'WRITER') {
+              <button class="btn btn-secondary" (click)="login('WRITER')">Switch to Writer</button>
+            }
+            @if (role !== 'VISITOR') {
+              <button class="btn btn-info" (click)="login('VISITOR')">Switch to Visitor</button>
+            }
+          </div>
+        </div>
+      }
     </div>
   `
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   private _authService = inject(AuthService);
   protected currentRole$ = this._authService.getCurrentRole();
+
+  ngOnInit() {
+    if (!this._authService.getStoredToken()) {
+      this.login('VISITOR');
+    }
+  }
 
   login(role: string): void {
     this._authService.getToken(role).subscribe({
@@ -41,10 +49,6 @@ export class LoginComponent {
       },
       error: (error) => console.error('Login error:', error)
     });
-  }
-
-  logout(): void {
-    this._authService.logout();
   }
 
   protected getRoleBadgeClass(role: string): string {

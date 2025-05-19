@@ -13,6 +13,13 @@ export class AuthService {
     const role = localStorage.getItem('user_role');
     if (role) {
       this.currentRoleSubject.next(role);
+    } else {
+      // Auto-login as visitor
+      this.getToken('VISITOR').subscribe({
+        next: (response) => {
+          this.setToken(response.token, 'VISITOR');
+        }
+      });
     }
   }
 
@@ -32,12 +39,6 @@ export class AuthService {
 
   getCurrentRole(): Observable<string | null> {
     return this.currentRoleSubject.asObservable();
-  }
-
-  logout(): void {
-    localStorage.removeItem('jwt_token');
-    localStorage.removeItem('user_role');
-    this.currentRoleSubject.next(null);
   }
 
   hasPermission(action: 'READ' | 'WRITE' | 'UPDATE' | 'DELETE'): boolean {
