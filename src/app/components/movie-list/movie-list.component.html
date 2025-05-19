@@ -6,51 +6,53 @@
       </div>
     </div>
   }
-  
+
   @for (movie of movies; track movie.id) {
     <div class="col-md-2 mb-3">
       <div class="card h-100">
-        <img 
-          [src]="movie.coverUrl" 
-          class="card-img-top" 
+        <img
+          [src]="movie.coverUrl"
+          class="card-img-top"
           alt="{{ movie.name }}"
         >
         <div class="card-body">
           <h5 class="card-title">{{ movie.name }}</h5>
-          
+
           <div class="mb-2">
             @if (movie.status === 'wishlist') {
               <span class="badge bg-info me-1">In wishlist</span>
             }
             @if (movie.status === 'watched') {
               <span class="badge bg-success me-1">Watched</span>
-              <app-star-rating 
-                [score]="movie.score" 
+              <app-star-rating
+                [score]="movie.score"
                 (ratingChange)="setMovieRating(movie.id, $event)">
               </app-star-rating>
             }
           </div>
-          
-          <a [href]="movie.watchUrl" target="_blank" 
+
+          <a [href]="movie.watchUrl" target="_blank"
             class="btn btn-primary me-2" title="Watch movie">
             <i class="bi bi-eye"></i>
           </a>
 
-          @if (movie.status === 'wishlist') {
-            <button class="btn btn-success me-2" 
+          @if (movie.status === 'wishlist' && canUpdate) {
+            <button class="btn btn-success me-2"
             title = "Mark as watched"
             (click)="setAsWatched(movie.id)">
               <i class="bi bi-check-circle"></i>
             </button>
           }
 
-          <button class="btn btn-danger" 
-          title = "Delete movie"
-          (click)="deleteMovie(movie.id)">
-            <i class="bi bi-trash"></i>
-          </button>
+            @if (canDelete) {
+              <button class="btn btn-danger"
+              title = "Delete movie"
+              (click)="deleteMovie(movie.id)">
+                <i class="bi bi-trash"></i>
+              </button>
+            }
         </div>
       </div>
     </div>
   }
-</div> 
+</div>

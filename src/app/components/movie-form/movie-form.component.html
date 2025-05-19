@@ -1,66 +1,68 @@
-<div class="card mb-4">
-  <div class="card-header">
-    <h5>Add new movie</h5>
+@if (canWrite) {
+  <div class="card mb-4">
+    <div class="card-header">
+      <h5>Add new movie</h5>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="movieForm" (ngSubmit)="addMovie()">
+        <div class="form-group">
+          <label for="name">Movie name</label>
+          <input type="text" id="name" 
+            [formControl]=movieForm.controls.name 
+            class="form-control">
+          @if(movieForm.controls.name.invalid && movieForm.controls.name.touched) {
+            <div style="color: lightcoral; font-style: italic">Movie name is required</div>
+          }
+        </div>
+        
+        <div class="form-group">
+          <label for="coverUrl">Cover URL</label>
+          <input type="text" id="coverUrl" 
+            [formControl]="movieForm.controls.coverUrl" 
+            class="form-control">
+          @if(movieForm.controls.coverUrl.invalid && movieForm.controls.coverUrl.touched) {
+            <div style="color: lightcoral; font-style: italic">Cover URL is required</div>
+          }
+        </div>
+        
+        <div class="form-group">
+          <label for="watchUrl">Watch URL</label>
+          <input type="text" id="watchUrl" 
+            [formControl]="movieForm.controls.watchUrl" 
+            class="form-control">
+          @if(movieForm.controls.watchUrl.invalid && movieForm.controls.watchUrl.touched) {
+            <div style="color: lightcoral; font-style: italic;">Watch URL is required</div>
+          }
+        </div>
+        
+        <div class="form-check">
+          <input type="radio" id="inWishlist" 
+            [formControl]="movieForm.controls.status" 
+            [value]="'wishlist'"
+            class="form-check-input">
+          <label for="inWishlist">In wishlist</label>
+        </div>
+        
+        <div class="form-check">
+          <input type="radio" id="watched" 
+            [formControl]="movieForm.controls.status" 
+            [value]="'watched'"
+            class="form-check-input">
+          <label for="watched">Watched</label>
+        </div>
+        
+        @if(movieForm.controls.status.value === 'watched') {
+            <label>Movie rating:</label>
+            <app-star-rating 
+            [score]="movieForm.controls.score.value" 
+            (ratingChange)="setRating($event)">
+          </app-star-rating>
+        }
+        
+        <button type="submit" 
+          [disabled]="movieForm.invalid"
+          class="btn btn-primary">Add movie</button>
+      </form>
+    </div>
   </div>
-  <div class="card-body">
-    <form [formGroup]="movieForm" (ngSubmit)="addMovie()">
-      <div class="form-group">
-        <label for="name">Movie name</label>
-        <input type="text" id="name" 
-          [formControl]=movieForm.controls.name 
-          class="form-control">
-        @if(movieForm.controls.name.invalid && movieForm.controls.name.touched) {
-          <div style="color: lightcoral; font-style: italic">Movie name is required</div>
-        }
-      </div>
-      
-      <div class="form-group">
-        <label for="coverUrl">Cover URL</label>
-        <input type="text" id="coverUrl" 
-          [formControl]="movieForm.controls.coverUrl" 
-          class="form-control">
-        @if(movieForm.controls.coverUrl.invalid && movieForm.controls.coverUrl.touched) {
-          <div style="color: lightcoral; font-style: italic">Cover URL is required</div>
-        }
-      </div>
-      
-      <div class="form-group">
-        <label for="watchUrl">Watch URL</label>
-        <input type="text" id="watchUrl" 
-          [formControl]="movieForm.controls.watchUrl" 
-          class="form-control">
-        @if(movieForm.controls.watchUrl.invalid && movieForm.controls.watchUrl.touched) {
-          <div style="color: lightcoral; font-style: italic;">Watch URL is required</div>
-        }
-      </div>
-      
-      <div class="form-check">
-        <input type="radio" id="inWishlist" 
-          [formControl]="movieForm.controls.status" 
-          [value]="'wishlist'"
-          class="form-check-input">
-        <label for="inWishlist">In wishlist</label>
-      </div>
-      
-      <div class="form-check">
-        <input type="radio" id="watched" 
-          [formControl]="movieForm.controls.status" 
-          [value]="'watched'"
-          class="form-check-input">
-        <label for="watched">Watched</label>
-      </div>
-      
-      @if(movieForm.controls.status.value === 'watched') {
-          <label>Movie rating:</label>
-          <app-star-rating 
-          [score]="movieForm.controls.score.value" 
-          (ratingChange)="setRating($event)">
-        </app-star-rating>
-      }
-      
-      <button type="submit" 
-        [disabled]="movieForm.invalid"
-        class="btn btn-primary">Add movie</button>
-    </form>
-  </div>
-</div> 
+} 

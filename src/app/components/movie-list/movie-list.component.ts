@@ -5,6 +5,7 @@ import { Movie } from '../../models/movie.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DestroyRef } from '@angular/core';
 import { StarRatingComponent } from '../star-rating.component';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-movie-list',
   standalone: true,
@@ -14,16 +15,25 @@ import { StarRatingComponent } from '../star-rating.component';
 })
 export class MovieListComponent implements OnInit {
   private _movieService = inject(MovieService);
+  private _authService = inject(AuthService);
   private _destroyRef = inject(DestroyRef);
 
   protected movies: Movie[] = [];
-
+  protected canUpdate = false;
+  protected canDelete = false;
 
   public ngOnInit(): void {
     this._movieService.getMovies().pipe(
       takeUntilDestroyed(this._destroyRef)
     ).subscribe(movies => {
       this.movies = movies;
+    });
+
+    this._authService.getCurrentRole().pipe(
+      takeUntilDestroyed(this._destroyRef)
+    ).subscribe(() => {
+      this.canUpdate = this._authService.hasPermission('UPDATE');
+      this.canDelete = this._authService.hasPermission('DELETE');
     });
   }
 
