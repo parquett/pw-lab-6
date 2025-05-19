@@ -26,8 +26,10 @@ export class MovieFormComponent {
   protected addMovie(): void {
     if (this.movieForm.valid) {
       const newMovie: Movie = this.movieForm.value as Movie;
-      this._movieService.addMovie(newMovie);
-      this.movieForm.reset();
+      this._movieService.addMovie(newMovie).subscribe({
+        next: () => this.movieForm.reset(),
+        error: (error) => console.error('Error adding movie:', error)
+      });
     }
   }
 

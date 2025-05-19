@@ -29,19 +29,25 @@ export class MovieListComponent implements OnInit {
 
   protected deleteMovie(id: number | undefined): void {
     if (id !== undefined) {
-      this._movieService.deleteMovie(id);
+      this._movieService.deleteMovie(id).subscribe({
+        error: (error) => console.error('Error deleting movie:', error)
+      });
     }
   }
 
   protected setAsWatched(id: number | undefined): void {
     if (id !== undefined) {
-      this._movieService.updateMovieStatus(id, 'watched');
+      this._movieService.updateMovieStatus(id, 'watched').subscribe({
+        error: (error) => console.error('Error updating movie status:', error)
+      });
     }
   }
 
   protected setMovieRating(id: number | undefined, value: number): void {
     if (id !== undefined) {
-      this._movieService.updateMovieScore(id, value);
+      this._movieService.updateMovieScore(id, value).subscribe({
+        error: (error) => console.error('Error updating movie score:', error)
+      });
     }
   }
 } 
